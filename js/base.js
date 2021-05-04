@@ -27,10 +27,10 @@ if (a>b) {
 	Pedir por el promt un numero, y comprobar si es par o impar
 */
 let c = window.prompt("Escribe un tercer número:");
-if( c % 2 == 0){
-    console.log("El numero es par");
+if( c % 2 === 0){
+    console.log(`El numero ${c} es par`);
 }else{
-    console.log("El numero es impar");
+    console.log(`El numero ${c} es impar`);
 }
 
 
