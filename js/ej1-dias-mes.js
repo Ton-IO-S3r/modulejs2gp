@@ -4,7 +4,7 @@
 // p.ej.
 // --> El mes 5 (Mayo) tiene 31 días
 const numero = parseInt(window.prompt("Ingresa un número entre 1 y 12."));
-
+const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 switch (numero) {
     case 1:
     case 3:
@@ -13,15 +13,15 @@ switch (numero) {
     case 8:
     case 10:
     case 12:
-        console.log(`El mes ${numero} tiene 31 días`)
+        console.log(`El mes ${numero} (${meses[numero-1]}) tiene 31 días`)
         break;
     case 4:
     case 6:
     case 9:
     case 11:
-        console.log(`El mes ${numero} tiene 30 días`)
+        console.log(`El mes ${numero} (${meses[numero-1]}) tiene 30 días`)
         break;
     default:
-        console.log(`El mes ${numero} tiene 28 días (29 cuando es año bisiesto)`)
+        console.log(`El mes ${numero} (${meses[numero-1]}) tiene 28 días (29 cuando es año bisiesto)`)
         break;
 }
