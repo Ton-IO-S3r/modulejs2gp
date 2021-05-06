@@ -9,11 +9,8 @@
  */
 const word = window.prompt('Ingresa una palabra');
 const number = window.prompt('Ingresa un numero');
-let result=' ';
-for (let i = 0; i < number; i++) {
-    result += word
-    result.concat(" ");
-}
+let result='';
+result = (word+" ").repeat(number);
 
 
 console.log(`${result}`)
