@@ -6,9 +6,9 @@ function pesoLunar(peso) {
     let pesoLuna = masa * gravedadLuna;
     return pesoLuna
 }
-/* let nombre = window.prompt("Cual es tu nombre?");
+let nombre1 = window.prompt("Cual es tu nombre?");
 let peso = parseFloat(window.prompt("Cual es tu peso actual?"));
-console.log(`${nombre}, tu peso en la luna sería de: ${pesoLunar(peso)} Kg·f`); */
+console.log(`${nombre1}, tu peso en la luna sería de: ${pesoLunar(peso)} Kg·f`);
 
 /* PALINDROMOS */
 function deleteSpaces(sentence) {
@@ -36,19 +36,19 @@ function isPalindrome(sentence){
     } 
 }
 
-/* const frase = window.prompt("Ingresa una frase:");
+const frase = window.prompt("Ingresa una frase:");
 if (isPalindrome(frase)) {
     console.log(`La oración: ${frase}, ES un palindromo`)
 }else{
     console.log(`La oración: ${frase}, NO ES un palindromo`)
-} */
+}
 
 /* NOMBRE INVERTIDO */
 function revertName(name) {
     return name.split("").reverse().join("").toUpperCase();
 }
-/* const nombre = window.prompt('Ingresa tu nombre');
-console.log(revertName(nombre)); */
+const nombre2 = window.prompt('Ingresa tu nombre');
+console.log(revertName(nombre2));
 
 /* OBTENER DIAS DEL MES */
 
@@ -90,16 +90,16 @@ function getDaysOfMonth(monthNumber) {
     return [days, meses[monthNumber-1]]
 }
 
-/* const numero = parseInt(window.prompt("Ingresa un número entre 1 y 12."));
+const numero = parseInt(window.prompt("Ingresa un número entre 1 y 12."));
 let diasMes=getDaysOfMonth(numero);
 if (diasMes[0] == 28) {
     console.log(`El mes ${numero} (${diasMes[1]}) tiene ${diasMes[0]} días (29 cuando es año bisiesto)`)
 }else{
     console.log(`El mes ${numero} (${diasMes[1]}) tiene ${diasMes[0]} días`)
-} */
+}
 
 
-/* WEATHER */
+/* SEPARAR VOCALES Y CONSONANTES */
 
 function lastChar(myname) {
     let last = myname.charAt(myname.length-1);
