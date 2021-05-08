@@ -38,14 +38,14 @@ console.log(`La suma de los multiplos de 3, 5 o 7 entre 1 y 100 es : ${sumatoria
  * -> ta, te, ti, to , tu 
  * -> pa, pe, pi, po , pu
  */
-const consonants = 'smtp';
+/* const consonants = 'smtp';
 const vowels = 'aeiou';
-let combinations='';
+
 for (let i = 0; i < consonants.length; i++) {
+    let combinations='';
     for (let j = 0; j < vowels.length; j++) {
         combinations += consonants[i].concat(vowels[j]).concat(', '); 
         
     }
     console.log(combinations.slice(0,combinations.length-2))
-    combinations='';
-}
+} */
