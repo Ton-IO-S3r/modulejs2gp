@@ -3,7 +3,7 @@
  * Pedir el usuario un numero entre 10 y 100
  * Imprimir todos los numeros pares que existen entre 1 y ese numero
  */
-function showEvens(number) {
+function showEvens(number=100) {
   let i=1;
   while (i<= number) {
       if (i%2 == 0 ) {
