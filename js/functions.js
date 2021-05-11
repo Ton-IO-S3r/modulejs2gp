@@ -1,125 +1,109 @@
-/* PESO EN LA LUNA */
+/**
+ * Convertidor de temperatura
+ * Generar una función, que reciba (grados, entrada, salída ) 
+ * Default es ºC a ºF
+ * p.ej. (100,c,f) -> 100 ºC a ºF -> Default
+ * p.ej. (100,f,c) -> 100 ºF a ºC
+ * C to F -> (celsius*9)/5 + 32
+ * F to C -> ((fahrenheit - 32)*5)/9
+ *
+ */
 
-function pesoLunar(peso) {
-    const gravedadLuna = 1.622
-    let masa = peso/9.81;
-    let pesoLuna = masa * gravedadLuna;
-    return pesoLuna
-}
-let nombre1 = window.prompt("Cual es tu nombre?");
-let peso = parseFloat(window.prompt("Cual es tu peso actual?"));
-console.log(`${nombre1}, tu peso en la luna sería de: ${pesoLunar(peso)} Kg·f`);
-
-/* PALINDROMOS */
-function deleteSpaces(sentence) {
-    let fraseSinEspacios='';
-    for (let i = 0; i < sentence.length; i++) {
-        if (sentence[i] !== ' ') {
-            fraseSinEspacios += sentence[i];
-        }
+function convertTemp(temp, typeIn = 'C', typeOut = 'F') {
+    let tempConverted=0;
+    if (temp != undefined && typeIn === 'C' && typeOut === 'F') {
+        tempConverted= ((temp*9)/5)+32
+    } else if(temp != undefined && typeIn === 'F' && typeOut === 'C'){
+        tempConverted= ((temp-32)*5)/9
+    }else{
+        tempConverted = null
     }
-    return fraseSinEspacios
-}
-function isPalindrome(sentence){
-    const fraseLowerCase = sentence.toLowerCase();
-    let index=0, middle=0;
-    let fraseSinEspacios = deleteSpaces(fraseLowerCase);
-    middle = parseInt(fraseSinEspacios.length/2);
-    for (let i = 0; i < middle; i++) {
-        if (fraseSinEspacios[i] !== fraseSinEspacios[fraseSinEspacios.length-i-1]) {
-            return false
-        }
-        index++;
-    }
-    if (index==middle) {
-        return true
-    } 
+    return [tempConverted,typeOut]
 }
 
-const frase = window.prompt("Ingresa una frase:");
-if (isPalindrome(frase)) {
-    console.log(`La oración: ${frase}, ES un palindromo`)
-}else{
-    console.log(`La oración: ${frase}, NO ES un palindromo`)
+/* const temperature = parseInt(window.prompt('Ingresa el valor de la temperatura:'));
+const tipoIn = window.prompt('Ingresa la escala de temperatura inicial (C, F):').toUpperCase();
+const tipoOut = window.prompt('Ingresa la escala de temperatura a la que deseas convertir (C, F):').toUpperCase();
+let [converted, type] = convertTemp(temperature,tipoIn,tipoOut);
+(converted !=null) ? console.log(`${temperature} ${tipoIn} -> ${converted} ${type}`) : console.log('Los datos introducidos son incorrectos') */
+
+
+/**
+ * Ejercicio
+ * Simular el funcionamiento de un cajero
+ * 
+ * considerar estas acciones
+ * 1. Retiro de efectivo (cantidad)
+ * 2. Depósito (cantidad)
+ * 3. Consulta de saldo () 
+ * 4. Traspasar a la cuenta 1234 $500 (cuenta, cantidad)
+ * 
+ * Datos iniciales
+ * Saldo inicial: $2000
+ * Consultas de saldo = 2000
+ * Depósitos = 0
+ * Retiros = 0
+ * 
+ * 
+ * Pasos a ejecutar
+ * 1. Depositar 2000
+ * 2. Retirar 450
+ * 3. Consultar saldo
+ * 4. Retirar 400
+ * 5. Consultar saldo
+ * 
+ */
+
+
+function consultarSaldo() {
+    consultas++;
+    console.log(`Cuentas con: $${saldo}`)
+    console.log(`Consultas del dia: ${consultas}`)
+}
+function retirarEfectivo(cantidad) {
+    saldo -= cantidad;
+    retiros++;
+    console.log(`Retiraste: $${cantidad}`)
+    console.log(`Tienes disponible: $${saldo}`)
+    console.log(`Retiros del dia: ${retiros}`)
+}
+function depositarEfectivo(cantidad) {
+    saldo += cantidad;
+    depositos++;
+    console.log(`Depositaste a tu cuenta: $${cantidad}`)
+    console.log(`Tienes disponible: $${saldo}`)
+    console.log(`Depositos del día: ${depositos}`)
+}
+function transferirTercero(cuenta, cantidad) {
+    saldo -= cantidad;
+    console.log(`Se transfirió a la cuenta ***${cuenta} la cantidad de: $${cantidad}`)
+    console.log(`Tienes disponible: $${saldo}`)
+    console.log(`Retiros del día: ${retiros}`)
 }
 
-/* NOMBRE INVERTIDO */
-function revertName(name) {
-    return name.split("").reverse().join("").toUpperCase();
-}
-const nombre2 = window.prompt('Ingresa tu nombre');
-console.log(revertName(nombre2));
-
-/* OBTENER DIAS DEL MES */
-
-function getDaysOfMonth(monthNumber) {
-    const meses = [ 'enero', 
-                    'febrero', 
-                    'marzo', 
-                    'abril', 
-                    'mayo', 
-                    'junio', 
-                    'julio', 
-                    'agosto', 
-                    'septiembre', 
-                    'octubre', 
-                    'noviembre', 
-                    'diciembre'
-                ];
-    let days;
-        switch (monthNumber) {
+let session = true
+let saldo=2000, depositos = 0, retiros = 0, consultas = 0;
+while (session) {
+    let action = parseInt(window.prompt('Que operación deseas realizar: \n1)Consultar Saldo \n 2)Retirar efectivo\n 3)Depositar a tu cuenta\n 4)Transferir a terceros\n 5)Finalizar'))    
+    switch (action) {
         case 1:
+            consultarSaldo();
+            break;
+        case 2:
+            let cantidadRetiro = parseFloat(window.prompt('Que cantidad deseas retirar?'))
+            retirarEfectivo(cantidadRetiro)
+            break;
         case 3:
-        case 5:
-        case 7:
-        case 8:
-        case 10:
-        case 12:
-            days = 31;
+            let cantidadDeposito = parseFloat(window.prompt('Que cantidad deseas depositar?'))
+            depositarEfectivo(cantidadDeposito)
             break;
         case 4:
-        case 6:
-        case 9:
-        case 11:
-            days = 30;
+            let cuenta = 1234;
+            let cantidadTransfer = parseFloat(window.prompt('Cuanto vas a transferir?'))
+            transferirTercero(cuenta, cantidadTransfer)
             break;
         default:
-            days = 28
+            session = false;
             break;
     }
-    return [days, meses[monthNumber-1]]
 }
-
-const numero = parseInt(window.prompt("Ingresa un número entre 1 y 12."));
-let diasMes=getDaysOfMonth(numero);
-if (diasMes[0] == 28) {
-    console.log(`El mes ${numero} (${diasMes[1]}) tiene ${diasMes[0]} días (29 cuando es año bisiesto)`)
-}else{
-    console.log(`El mes ${numero} (${diasMes[1]}) tiene ${diasMes[0]} días`)
-}
-
-
-/* SEPARAR VOCALES Y CONSONANTES */
-
-function lastChar(myname) {
-    let last = myname.charAt(myname.length-1);
-    if (
-        last === 'a' || 
-        last === 'e' || 
-        last === 'i' || 
-        last === 'o' || 
-        last === 'u' ||
-        last === 'á' ||
-        last === 'é' ||
-        last === 'í' ||
-        last === 'ó' ||
-        last === 'ú'
-    ){
-        return 'vocal'
-    }else{
-        return 'consonante'
-    }
-}
-
-const myName = window.prompt("Cual es tu nombre?").toLowerCase();
-console.log(`Tu nombre termina con la ${lastChar(myName)} ${myName[myName.length-1]}`)
