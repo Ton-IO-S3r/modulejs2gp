@@ -110,11 +110,7 @@ while (session) {
 
 
 
-/* FUNCIONES COMO EXPRESION */
-const saludar = function (name) {
-    console.log(`Hola ${name}`)
-}
-saludar('Jorge')
+/* FUNCIONES COMO EXPRESION + ARROW FUNCTIONS*/
 
 const consultarSaldo = () => {
     consultas++;
@@ -122,11 +118,16 @@ const consultarSaldo = () => {
     console.log(`Consultas del dia: ${consultas}`)
 }
 const retirarEfectivo = (cantidad) => {
-    saldo -= cantidad;
-    retiros++;
-    console.log(`Retiraste: $${cantidad}`)
-    console.log(`Tienes disponible: $${saldo}`)
-    console.log(`Retiros del dia: ${retiros}`)
+    if (cantidad > saldo) {
+        console.log(`No se puede completar la operación. Saldo insuficiente.`)
+    }else{
+        saldo -= cantidad;
+        retiros++;
+        console.log(`Retiraste: $${cantidad}`)
+        console.log(`Tienes disponible: $${saldo}`)
+        console.log(`Retiros del dia: ${retiros}`)
+    }
+    
 }
 const depositarEfectivo= (cantidad) => {
     saldo += cantidad;
@@ -136,33 +137,37 @@ const depositarEfectivo= (cantidad) => {
     console.log(`Depositos del día: ${depositos}`)
 }
 const transferirTercero = (cuenta, cantidad) => {
-    saldo -= cantidad;
-    retiros++; 
-    console.log(`Se transfirió a la cuenta ***${cuenta} la cantidad de: $${cantidad}`)
-    console.log(`Tienes disponible: $${saldo}`)
-    console.log(`Retiros del día: ${retiros}`)
+    if (cantidad > saldo) {
+        console.log(`No se puede completar la operación. Saldo insuficiente.`)
+    }else{
+        saldo -= cantidad;
+        retiros++; 
+        console.log(`Se transfirió a la cuenta ***${cuenta} la cantidad de: $${cantidad}`)
+        console.log(`Tienes disponible: $${saldo}`)
+        console.log(`Retiros del día: ${retiros}`)
+    }
 }
 
 let session = true
 let saldo=2000, depositos = 0, retiros = 0, consultas = 0;
 while (session) {
-    let action = parseInt(window.prompt('Que operación deseas realizar: \n1)Consultar Saldo \n 2)Retirar efectivo\n 3)Depositar a tu cuenta\n 4)Transferir a terceros\n 5)Finalizar'))    
+    let action = parseInt(window.prompt('Que operación deseas realizar: \n 1) Consultar Saldo \n 2) Retirar efectivo \n 3) Depositar a tu cuenta \n 4) Transferir a terceros \n 5) Finalizar'))    
     switch (action) {
         case 1:
             consultarSaldo();
             break;
         case 2:
             let cantidadRetiro = parseFloat(window.prompt('Que cantidad deseas retirar?'))
-            retirarEfectivo(cantidadRetiro)
+            isNaN(cantidadRetiro) ? console.error('Error en la transacción') : retirarEfectivo(cantidadRetiro)
             break;
         case 3:
             let cantidadDeposito = parseFloat(window.prompt('Que cantidad deseas depositar?'))
-            depositarEfectivo(cantidadDeposito)
+            isNaN(cantidadDeposito) ? console.error('Error en la transacción') : depositarEfectivo(cantidadDeposito)
             break;
         case 4:
             let cuenta = 1234;
             let cantidadTransfer = parseFloat(window.prompt('Cuanto vas a transferir?'))
-            transferirTercero(cuenta, cantidadTransfer)
+            isNaN(cantidadTransfer) ? console.error('Error en la transacción') : transferirTercero(cuenta, cantidadTransfer)
             break;
         default:
             session = false;
