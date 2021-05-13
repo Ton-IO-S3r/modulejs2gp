@@ -6,7 +6,7 @@ consola el array al revés
 arrayReverse([1,2,3,4]). 
 -> [4,3,2,1]
 */
-const reverseArray = (array) => console.log(array.reverse());
+const reverseArray = (myArray) => myArray.reverse();
 
 /*
 Escribir una funcion que tome como parametro 2 arrays, y devuelva un numero 
