@@ -1,10 +1,7 @@
-console.log('Metodos de Array - ForEach, MAp, Filter, REduce');
+console.log('Metodos de Array - Map, Reduce');
 
-/* FOR EACH */
-let arrFor=[1,2,3,4]
-arrFor.forEach((currentValue, index, arr)=> {
-    console.log(index, currentValue,arr)
-    arr.push(9)
-    console.log(arr)
-});
-console.log(arrFor)
+/* REDUCE */
+let a = [1,2,3,4,5].reduce((acc,cv)=>{
+    return acc/cv
+},'100')
+console.log(a)
