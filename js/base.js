@@ -125,3 +125,9 @@ console.log(entries)
 /* METODO VALUES */
 let values = Object.values(objPedido)
 console.log(values)
+
+
+/* //  * Ordene el array de objetos de acuerdo al autor
+const sortByAuthor = (objArray) => objArray.sort((a,b)=> a.author.toUpperCase() < b.author.toUpperCase() ? -1 : (a.author.toUpperCase() > b.author.toUpperCase() ? 1 : 0))
+//  * Ordene el array de objetos de acuerdo al "readingStatus"
+const sortByStatus = (objArray) => objArray.sort((a,b)=> a.readingStatus === b.readingStatus ? 0 : (a.readingStatus ? -1 : 1)) */
