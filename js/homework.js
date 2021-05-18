@@ -24,7 +24,7 @@ let library = [
  * Ordene el array de objetos de acuerdo al "readingStatus"
  * Filtre los libros que estan ocupados
  * 
- */ 
+ */
 
 //* Ordenar el array de objetos de acuerdo al titulo
 /* const sortByTitle = (objArray) => {
@@ -38,72 +38,76 @@ let library = [
     }
   })
 } */
-const sortByTitle = (objArray) => objArray.sort((a,b)=> a.title.toUpperCase() < b.title.toUpperCase() ? -1 : (a.title.toUpperCase() > b.title.toUpperCase() ? 1 : 0))
-//  * Ordenar el array de objetos de acuerdo al autor
-const sortByAuthor = (objArray) => objArray.sort((a,b)=> a.author.toUpperCase() < b.author.toUpperCase() ? -1 : (a.author.toUpperCase() > b.author.toUpperCase() ? 1 : 0))
-//  * Ordenar el array de objetos de acuerdo al "readingStatus"
-const sortByStatus = (objArray) => objArray.sort((a,b)=> a.readingStatus === b.readingStatus ? 0 : (a.readingStatus ? -1 : 1))
-// * Filtrar los libros que estan ocupados
-const filterTaken = (objsArray) => objsArray.filter((objArray)=> !objArray.readingStatus)
+const sortByTitle = (objArray) => objArray.sort((a, b) => a.title.toUpperCase() < b.title.toUpperCase() ? -1 : a.title.toUpperCase() > b.title.toUpperCase() ? 1 : 0);
 
-let library = [ 
+//  * Ordenar el array de objetos de acuerdo al autor
+const sortByAuthor = (objArray) => objArray.sort((a, b) => a.author.toUpperCase() < b.author.toUpperCase() ? -1 : a.author.toUpperCase() > b.author.toUpperCase() ? 1 : 0);
+
+//  * Ordenar el array de objetos de acuerdo al "readingStatus"
+const sortByStatus = (objArray) => objArray.sort((a, b) => a.readingStatus === b.readingStatus ? 0 : a.readingStatus ? -1 : 1);
+
+// * Filtrar los libros que estan ocupados
+const filterTaken = (objsArray) => objsArray.filter((objArray) => !objArray.readingStatus);
+
+let library = [
   {
-    author: 'Steve Jobs',
-    title: 'Walter Isaacson',
-    readingStatus: true
+    author: "Steve Jobs",
+    title: "Walter Isaacson",
+    readingStatus: true,
   },
   {
-    author: 'Bill Gates',
-    title: 'The Road Ahead',
-    readingStatus: false
+    author: "Bill Gates",
+    title: "The Road Ahead",
+    readingStatus: false,
   },
   {
-    author: 'Suzanne Collins',
-    title:  'Mockingjay: The Final Book of The Hunger Games', 
-    readingStatus: false
+    author: "Suzanne Collins",
+    title: "Mockingjay: The Final Book of The Hunger Games",
+    readingStatus: false,
   },
   {
-    author: 'David Thomas',
-    title:  'The pragmatic programmer', 
-    readingStatus: true
+    author: "David Thomas",
+    title: "The pragmatic programmer",
+    readingStatus: true,
   },
   {
-    author: 'JRR Tolkein',
-    title:  'The unicorn project', 
-    readingStatus: true
+    author: "JRR Tolkein",
+    title: "The unicorn project",
+    readingStatus: true,
   },
   {
-    author: 'Steve Krug',
-    title:  'Don´t make me think', 
-    readingStatus: false
-  }
-]
+    author: "Steve Krug",
+    title: "Don´t make me think",
+    readingStatus: false,
+  },
+];
 
 /* La funcion SORT altera directamente al array 
   ¿Porque al ejecutar todo de una vez, no se imprime en consola el valor del arreglo conforme va cambiando?
 */
-console.log('Ordenar por Titulo')
-console.log(sortByTitle(library))
+console.log("Ordenar por Titulo");
+console.log(sortByTitle(library));
+debugger;
 
-console.log('Ordenar por Autor')
-console.log(sortByAuthor(library))
+console.log("Ordenar por Autor");
+console.log(sortByAuthor(library));
+debugger;
 
-console.log('Ordenar por Status')
-console.log(sortByStatus(library))
+console.log("Ordenar por Status");
+console.log(sortByStatus(library));
+debugger;
 
-console.log('Filtrar libros Ocupados')
-console.log(filterTaken(library))
-
+console.log("Filtrar libros Ocupados");
+console.log(filterTaken(library));
 
 /**
  * Dado un string
  * crear una funcion que sustitya cada caracter del string
  * con la letra siguiente del abecedario
-*/ 
-const moveCharsForward = str => str.split('').map(char => char!== ' ' ? String.fromCharCode(char.charCodeAt(0)+1) : char).join('')
-console.log(moveCharsForward('abcde fghi'))
+ */
+const moveCharsForward = (str) => str.split("").map((char) => char !== " " ? String.fromCharCode(char.charCodeAt(0) + 1) : char).join("");
+console.log(moveCharsForward("abcde fghi"));
 // -> 'bcdef'
-
 
 /**
  * Dado un array con objetos que tienen la propiedad de fecha de nacimiento
@@ -118,24 +122,24 @@ console.log(moveCharsForward('abcde fghi'))
     return obj
   })
 } */
-const convertBirthdates = arr => arr.map(obj => ({name: obj.name,birthdate: obj.birthdate = obj.birthdate.split('/').reverse().join('/')}))
+const convertBirthdates = (arr) => arr.map((obj) => ({ name: obj.name, birthdate: (obj.birthdate = obj.birthdate.split("/").reverse().join("/")) }));
 let person = [
   {
-      name:'Jorge',
-      birthdate: '1991/05/12'
+    name: "Jorge",
+    birthdate: "1991/05/12",
   },
   {
-      name:'luis',
-      birthdate: '1991/02/12'
+    name: "luis",
+    birthdate: "1991/02/12",
   },
   {
-      name:'mario',
-      birthdate: '1991/04/12'
+    name: "mario",
+    birthdate: "1991/04/12",
   },
   {
-      name:'victor',
-      birthdate: '1991/09/12'
-  }
-]
-console.log(convertBirthdates(person))
+    name: "victor",
+    birthdate: "1991/09/12",
+  },
+];
+console.log(convertBirthdates(person));
 // -> [{ name:'Jorge', birthdate: '05/12/1991' }, ...]
