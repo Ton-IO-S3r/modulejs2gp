@@ -105,7 +105,7 @@ console.log(filterTaken(library));
  * crear una funcion que sustitya cada caracter del string
  * con la letra siguiente del abecedario
  */
-const moveCharsForward = (str) => str.split("").map((char) => char !== " " ? String.fromCharCode(char.charCodeAt(0) + 1) : char).join("");
+const moveCharsForward = (str) => str.split("").map((mychar) => mychar !== " " ? String.fromCharCode(mychar.charCodeAt(0) + 1) : mychar).join("");
 console.log(moveCharsForward("abcde fghi"));
 // -> 'bcdef'
 
