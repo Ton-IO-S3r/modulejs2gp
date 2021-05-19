@@ -1,38 +1,76 @@
-console.log('Accessores GET - SET')
+console.log('DOM')
 
-//Metodos de objetos
-let koder ={
-    name: 'Antonio',
-    lastName: 'Servin',
-    age: 35,
-    getFullName: function () {
-        return `${this.name} ${this.lastName}`
-    }
+//Seleccionar un tag
+let element = document.getElementById('title_page_id')
+console.log(element.classList)
+console.log(element.dataset)
+console.log(element.id)
+console.log(element.innerText)
+console.log(element.innerHTML)
+console.log(element.getAttribute('class'))
+console.log(element.getAttribute('id'))
+console.log(element.getAttribute('data-id'))
+
+//Mostrar las clases que tiene el elemento
+//Classlist devuelde las clases en un array
+element.classList.forEach(item =>{
+    console.log(item)
+})
+
+//Mostrar los data-set que tiene el elemento
+//Dataset devuelve los data-set en un objeto
+for (item in element.dataset){
+    console.log(item)
 }
-console.log(koder.getFullName())
 
 
-let koders = [
+let koders1 = ['antonio', 'jorge','rosa','yair'];
+
+let rowsKoders1 = '';
+koders1.forEach((koder,index) =>{
+    rowsKoders1 += `
+        <tr>
+            <th scope="row">${index+1}</th>
+            <td>${koder}</td>
+        </tr>
+    `
+})
+let tabla1 = document.querySelector('.table1 tbody');
+tabla1.innerHTML=rowsKoders1;
+
+let koders2 = [
     {
-        name: 'Antonio',
-        lastName: 'Servin',
-        age: 35
-        
+        name: 'Jorge',
+        lastName: 'Camarillo',
+        age: 30,
+        github:'@dered-dev'
     },
     {
-        name: 'John',
-        lastName: 'Smith',
-        age: 45
-        
+        name:'Antonio',
+        lastName:'Servin',
+        age: 35,
+        github:'@Ton-IO-S3r'
+    },
+    {
+        name:'Ivan',
+        lastName:'Rossano',
+        age: 27,
+        github:'@IvanRossG'
     }
-]
+];
 
-koders.forEach(koder =>{
-    koder.getFullName = function () {
-        return `El koder ${this.name} ${this.lastName} tiene ${this.age} años`
-    }
+let rowsKoders2 = '';
+koders2.forEach((koder,index) =>{
+    let {name,lastName,age,github} = koder
+    rowsKoders2 += `
+        <tr class=" table-secondary">
+            <th scope="row">${index+1}</th>
+            <td>${name}</td>
+            <td>${lastName}</td>
+            <td>${age}</td>
+            <td>${github}</td>
+        </tr>
+    `
 })
-koders.forEach(koder=>{
-    console.log(koder.getFullName())
-})
-
+let tabla2 = document.querySelector('.table2 tbody');
+tabla2.innerHTML=rowsKoders2;
