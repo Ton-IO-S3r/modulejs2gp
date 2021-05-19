@@ -1,145 +1,68 @@
-/**
- * Teniendo como base este array de objetos
- 
-let library = [ 
-    {
-        author: 'Bill Gates',
-        title: 'The Road Ahead',
-        readingStatus: true
-    },
-    {
-        author: 'Steve Jobs',
-        title: 'Walter Isaacson',
-        readingStatus: true
-    },
-    {
-        author: 'Suzanne Collins',
-        title:  'Mockingjay: The Final Book of The Hunger Games', 
-        readingStatus: false
-    }
+// *
+//  * Ejercicio 1
+//  * Dado el siguiente array de objetos generar
+//  * Funcion que pinte mi lista de deseos
+const viewWishList = (wishListArray) =>{
+  var wishlistContent = '';
+  wishListArray.forEach((wish,index) =>{
+    let {iditem,name,description,price,imgurl} = wish
+    wishlistContent += `
+      <tr class=" table-light">
+          <th scope="row">${iditem}</th>
+          <td>${name}</td>
+          <td>${description}</td>
+          <td>$ ${price}</td>
+          <td><img src="${imgurl}" alt=""></td>
+      </tr>
+    `
+  })
+  let wishListTable = document.querySelector('.table-wishlist tbody');
+  wishListTable.innerHTML=wishlistContent;
+}
+//  * Funcion que ordene por id mi lista de deseos
+const sortByID = (objArray) => objArray.sort((a, b) => a.iditem < b.iditem ? -1 : a.iditem > b.iditem ? 1 : 0);
+//  * Funcion que ordene por nombre de producto mi lista de deseos
+const sortByName = (objArray) => objArray.sort((a, b) => a.name.toUpperCase() < b.name.toUpperCase() ? -1 : a.name.toUpperCase() > b.name.toUpperCase() ? 1 : 0);
+//  * Funcion que ordene por precio mi lista de deseos
+const sortByPrice = (objArray) => objArray.sort((a, b) => a.price < b.price ? -1 : a.price > b.price ? 1 : 0);
+
+ let wishList = [
+  {
+      iditem : 1,
+      name : 'Adidas Grand Court',
+      description : 'Adidas Grand Court Base EE7905 Tenis para Hombre',
+      price : 859,
+      imgurl : 'https://www.amazon.com.mx/images/I/71wNHYOh60L._AC_SX695_.jpg'
+  },
+  {
+      iditem : 3,
+      name : 'Nike Carreras',
+      description : 'Nike Carreras de mujer',
+      price : 1200,
+      imgurl : 'https://www.amazon.com.mx/images/I/71wNHYOh60L._AC_SX695_.jpg'
+  },
+  {
+      iditem : 2,
+      name : 'Nike Metcon',
+      description : 'Nike Metcon Sport Aq7489-008 - Zapatillas deportivas para hombre',
+      price : 990,
+      imgurl : 'https://www.amazon.com.mx/images/I/71dLLLfSfUL._AC_SY695_.jpg'
+  }
 ]
- * Crear las funciones que :
- * Ordene el array de objetos de acuerdo al titulo
- * Ordene el array de objetos de acuerdo al autor
- * Ordene el array de objetos de acuerdo al "readingStatus"
- * Filtre los libros que estan ocupados
- * 
- */
 
-//* Ordenar el array de objetos de acuerdo al titulo
-/* const sortByTitle = (objArray) => {
-  return  objArray.sort((a,b)=>{
-    if (a.title.toUpperCase() < b.title.toUpperCase()) {
-      return -1
-    } else if(a.title.toUpperCase() > b.title.toUpperCase()) {
-      return 1
-    } else{
-      return 0
-    }
-  })
-} */
-const sortByTitle = (objArray) => objArray.sort((a, b) => a.title.toUpperCase() < b.title.toUpperCase() ? -1 : a.title.toUpperCase() > b.title.toUpperCase() ? 1 : 0);
-
-//  * Ordenar el array de objetos de acuerdo al autor
-const sortByAuthor = (objArray) => objArray.sort((a, b) => a.author.toUpperCase() < b.author.toUpperCase() ? -1 : a.author.toUpperCase() > b.author.toUpperCase() ? 1 : 0);
-
-//  * Ordenar el array de objetos de acuerdo al "readingStatus"
-const sortByStatus = (objArray) => objArray.sort((a, b) => a.readingStatus === b.readingStatus ? 0 : a.readingStatus ? -1 : 1);
-
-// * Filtrar los libros que estan ocupados
-const filterTaken = (objsArray) => objsArray.filter((objArray) => !objArray.readingStatus);
-
-let library = [
-  {
-    author: "Steve Jobs",
-    title: "Walter Isaacson",
-    readingStatus: true,
-  },
-  {
-    author: "Bill Gates",
-    title: "The Road Ahead",
-    readingStatus: false,
-  },
-  {
-    author: "Suzanne Collins",
-    title: "Mockingjay: The Final Book of The Hunger Games",
-    readingStatus: false,
-  },
-  {
-    author: "David Thomas",
-    title: "The pragmatic programmer",
-    readingStatus: true,
-  },
-  {
-    author: "JRR Tolkein",
-    title: "The unicorn project",
-    readingStatus: true,
-  },
-  {
-    author: "Steve Krug",
-    title: "Don´t make me think",
-    readingStatus: false,
-  },
-];
-
-/* La funcion SORT altera directamente al array 
-  ¿Porque al ejecutar todo de una vez, no se imprime en consola el valor del arreglo conforme va cambiando?
+viewWishList(wishList)
+debugger
+sortByID(wishList)
+viewWishList(wishList)
+debugger
+sortByName(wishList)
+viewWishList(wishList)
+debugger
+sortByPrice(wishList)
+viewWishList(wishList)
+/**
+* Estudiar Eventos 
+* https://www.w3schools.com/js/js_events.asp
+* https://developer.mozilla.org/es/docs/Web/Events
+* https://www.javascripttutorial.net/javascript-dom/javascript-events/
 */
-console.log("Ordenar por Titulo");
-console.log(sortByTitle(library));
-debugger;
-
-console.log("Ordenar por Autor");
-console.log(sortByAuthor(library));
-debugger;
-
-console.log("Ordenar por Status");
-console.log(sortByStatus(library));
-debugger;
-
-console.log("Filtrar libros Ocupados");
-console.log(filterTaken(library));
-
-/**
- * Dado un string
- * crear una funcion que sustitya cada caracter del string
- * con la letra siguiente del abecedario
- */
-const moveCharsForward = (str) => str.split("").map((mychar) => mychar !== " " ? String.fromCharCode(mychar.charCodeAt(0) + 1) : mychar).join("");
-console.log(moveCharsForward("abcde fghi"));
-// -> 'bcdef'
-
-/**
- * Dado un array con objetos que tienen la propiedad de fecha de nacimiento
- * convertir las fechas de formato yyyy/mm/dd
- * al formato dd/mm/yyyy
-
- */
-/* ¿Cual es la manera mas conveniente u optima para hacerlo? */
-/* const convertBirthdates = (arr) =>{
-  return arr.map(obj =>{
-    obj.birthdate = obj.birthdate.split('/').reverse().join('/')
-    return obj
-  })
-} */
-const convertBirthdates = (arr) => arr.map((obj) => ({ name: obj.name, birthdate: (obj.birthdate = obj.birthdate.split("/").reverse().join("/")) }));
-let person = [
-  {
-    name: "Jorge",
-    birthdate: "1991/05/12",
-  },
-  {
-    name: "luis",
-    birthdate: "1991/02/12",
-  },
-  {
-    name: "mario",
-    birthdate: "1991/04/12",
-  },
-  {
-    name: "victor",
-    birthdate: "1991/09/12",
-  },
-];
-console.log(convertBirthdates(person));
-// -> [{ name:'Jorge', birthdate: '05/12/1991' }, ...]

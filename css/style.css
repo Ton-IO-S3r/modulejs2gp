@@ -1,0 +1,10 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.table-wishlist img{
+  width: 120px;
+  border-radius: 5px;
+}
