@@ -1,68 +1,73 @@
-// *
-//  * Ejercicio 1
-//  * Dado el siguiente array de objetos generar
-//  * Funcion que pinte mi lista de deseos
-const viewWishList = (wishListArray) =>{
-  var wishlistContent = '';
-  wishListArray.forEach((wish,index) =>{
-    let {iditem,name,description,price,imgurl} = wish
-    wishlistContent += `
+let koders =[
+  {
+      id: 10,
+      name: 'Antonio',
+  },
+  {
+      id: 5,
+      name: 'Ferdinand',
+  },
+  {
+      id: 3,
+      name: 'Rosa',
+  },
+  {
+      id: 1,
+      name: 'Yair',
+  },
+  {
+      id: 2,
+      name: 'Victor',
+  },
+  {
+      id: 8,
+      name: 'Omar'
+  },
+]
+let candidates = [...koders];
+let enrolledKoders=[];
+
+const printKodersTable = (KoderListArray, selector, table_type) =>{
+  var KoderlistContent = '';
+  KoderListArray.forEach((Koder,index) =>{
+    let {id,name} = Koder
+    KoderlistContent += `
       <tr class=" table-light">
-          <th scope="row">${iditem}</th>
+          <th scope="row">${id}</th>
           <td>${name}</td>
-          <td>${description}</td>
-          <td>$ ${price}</td>
-          <td><img src="${imgurl}" alt=""></td>
+          <td><button onclick="${table_type === 'candidates' ? 'EnrollKoder':'WithdrawKoder'}(${id})">${table_type === 'candidates' ? 'Inscribir':'Dar de baja'}</button></td>
       </tr>
     `
   })
-  let wishListTable = document.querySelector('.table-wishlist tbody');
-  wishListTable.innerHTML=wishlistContent;
+  let KoderListTable = document.querySelector(selector);
+  KoderListTable.innerHTML=KoderlistContent;
 }
-//  * Funcion que ordene por id mi lista de deseos
-const sortByID = (objArray) => objArray.sort((a, b) => a.iditem < b.iditem ? -1 : a.iditem > b.iditem ? 1 : 0);
-//  * Funcion que ordene por nombre de producto mi lista de deseos
-const sortByName = (objArray) => objArray.sort((a, b) => a.name.toUpperCase() < b.name.toUpperCase() ? -1 : a.name.toUpperCase() > b.name.toUpperCase() ? 1 : 0);
-//  * Funcion que ordene por precio mi lista de deseos
-const sortByPrice = (objArray) => objArray.sort((a, b) => a.price < b.price ? -1 : a.price > b.price ? 1 : 0);
 
- let wishList = [
-  {
-      iditem : 1,
-      name : 'Adidas Grand Court',
-      description : 'Adidas Grand Court Base EE7905 Tenis para Hombre',
-      price : 859,
-      imgurl : 'https://www.amazon.com.mx/images/I/71wNHYOh60L._AC_SX695_.jpg'
-  },
-  {
-      iditem : 3,
-      name : 'Nike Carreras',
-      description : 'Nike Carreras de mujer',
-      price : 1200,
-      imgurl : 'https://www.amazon.com.mx/images/I/71wNHYOh60L._AC_SX695_.jpg'
-  },
-  {
-      iditem : 2,
-      name : 'Nike Metcon',
-      description : 'Nike Metcon Sport Aq7489-008 - Zapatillas deportivas para hombre',
-      price : 990,
-      imgurl : 'https://www.amazon.com.mx/images/I/71dLLLfSfUL._AC_SY695_.jpg'
-  }
-]
 
-viewWishList(wishList)
-debugger
-sortByID(wishList)
-viewWishList(wishList)
-debugger
-sortByName(wishList)
-viewWishList(wishList)
-debugger
-sortByPrice(wishList)
-viewWishList(wishList)
-/**
-* Estudiar Eventos 
-* https://www.w3schools.com/js/js_events.asp
-* https://developer.mozilla.org/es/docs/Web/Events
-* https://www.javascripttutorial.net/javascript-dom/javascript-events/
-*/
+const EnrollKoder = (koderID)=>{
+  let koder2Enroll = candidates.filter(koder => koder.id == koderID)
+  enrolledKoders.push(koder2Enroll[0])
+  removeKoderFromArray(koderID,candidates)
+  printKodersTable(candidates,'.table-Koderlist tbody','candidates')
+  printKodersTable(enrolledKoders,'.table-enrolled tbody','enrolled')
+}
+
+const WithdrawKoder = (koderID) =>{
+  let koder2Withdraw = enrolledKoders.filter(koder => koder.id == koderID)
+  candidates.push(koder2Withdraw[0])
+  removeKoderFromArray(koderID,enrolledKoders)
+  printKodersTable(candidates,'.table-Koderlist tbody','candidates')
+  printKodersTable(enrolledKoders,'.table-enrolled tbody','enrolled')
+}
+
+const removeKoderFromArray = (koderID, array)=>{
+  array.forEach((item, index) =>{
+      if(item.id == koderID) array.splice(index,1)
+  })
+  return array
+}
+
+let showCandidatesBtn = document.querySelector('.showKoders')
+showCandidatesBtn.addEventListener('click', ()=>{
+  printKodersTable(candidates,'.table-Koderlist tbody','candidates')
+})
