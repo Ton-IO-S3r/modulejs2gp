@@ -14,10 +14,68 @@
 <body>
   <div class="container">
     <div class="row">
-      <h1 class="title_page title2 title3" id="title_page_id" data-id="id">Ejercicios de la clase 12</h1>
+      <h1 class="title_page title2 title3" id="title_page_id" data-id="id">Ejercicios de la clase 13</h1>
 
-      <h2>Eventos</h2>
+      <h2>Delegacion de Eventos</h2>
+      <h2>Inscribir Koders</h2>
 
+      <div class="col-12 mt-5 mb-5">
+        <form action="/procesar.php" method="POST" id="formLogin">
+
+          <input type="text" name="id" placeholder="id" id="idkoder" value="">
+          <input type="text" name="name" placeholder="name" id="namekoder" value="">
+          <!-- <input type="submit" value="ingresar"> -->
+          <!-- <button type="submit">ingresar</button> -->
+          <button type="submit">Agregar</button>
+
+        </form>
+
+        <!-- <a 
+                  class="link_element" 
+                  href="#anuncio">Ir al link</a> -->
+      </div>
+      <div class="col-6 d-flex justify-content-center">
+        <button class="showKoders btn btn-warning">Mostrar Koders</button>
+      </div>
+      <div class="col-6  d-flex justify-content-center">
+        <button class="reset btn btn-dark">RESET</button>
+      </div>
+      <div class="col-12 col-md-6">
+        <h3>Tabla de koders Postulados</h3>
+        <table class="table table-Koderlist">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Koder</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <div class="col-12 col-md-6">
+        <h3>Koders inscritos</h3>
+        <table class="table table-enrolled">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Koder</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
     </div>
   </div>

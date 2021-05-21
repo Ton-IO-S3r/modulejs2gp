@@ -15,8 +15,16 @@
 
   <div class="container">
     <div class="row">
-      <h1>Tareas - Clase 12</h1>
+      <h1>Tareas - Clase 13</h1>
       <h2>Inscribir Koders</h2>
+      <div class="col-12 mt-5 mb-5">
+        <form action="/procesar.php" method="POST" id="formLogin">
+          <input type="text" name="id" placeholder="id" id="idkoder" value="">
+          <input type="text" name="name" placeholder="name" id="namekoder" value="">
+          <button type="submit">Agregar</button>
+        </form>
+      </div>
+
       <div class="col-6 d-flex justify-content-center">
         <button class="showKoders btn btn-warning">Mostrar Koders</button>
       </div>
