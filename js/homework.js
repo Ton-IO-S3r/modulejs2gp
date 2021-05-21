@@ -25,7 +25,38 @@ let koders =[
   },
 ]
 let candidates = [...koders];
-let enrolledKoders=[];
+let enrolledKoders=[
+  {
+    id: 48,
+    name: 'Pedro'
+  }
+];
+
+const kodersTables = document.querySelectorAll('.table')
+const resetBtn = document.querySelector('.reset')
+const showCandidatesBtn = document.querySelector('.showKoders')
+
+resetBtn.addEventListener('click', ()=>{
+  // candidates = [...koders]
+  
+  candidates = candidates.concat(enrolledKoders)
+  enrolledKoders = []
+  
+  printKoders()
+})
+
+showCandidatesBtn.addEventListener('click', ()=>{
+  printKoders()
+})
+
+
+kodersTables.forEach((table)=>{
+  table.addEventListener('click',(event)=>{
+    var myElement = event.target;
+    myElement.dataset.id != undefined && myElement.classList.contains('enroll') ? EnrollKoder(myElement.dataset.id) : myElement.dataset.id != undefined && myElement.classList.contains('withdraw') ? WithdrawKoder(myElement.dataset.id) : ''
+  })
+})
+
 
 const printKodersTable = (KoderListArray, selector, table_type) =>{
   var KoderlistContent = '';
@@ -35,29 +66,30 @@ const printKodersTable = (KoderListArray, selector, table_type) =>{
       <tr class=" table-light">
           <th scope="row">${id}</th>
           <td>${name}</td>
-          <td><button onclick="${table_type === 'candidates' ? 'EnrollKoder':'WithdrawKoder'}(${id})">${table_type === 'candidates' ? 'Inscribir':'Dar de baja'}</button></td>
+          <td><button class="btn btn-${table_type === 'candidates' ? 'primary enroll':'secondary withdraw'}" data-id=${id}>${table_type === 'candidates' ? 'Inscribir':'Dar de baja'}</button></td>
       </tr>
     `
   })
   let KoderListTable = document.querySelector(selector);
   KoderListTable.innerHTML=KoderlistContent;
 }
-
+const printKoders = ()=>{
+  printKodersTable(candidates,'.table-Koderlist tbody','candidates')
+  printKodersTable(enrolledKoders,'.table-enrolled tbody','enrolled')
+}
 
 const EnrollKoder = (koderID)=>{
   let koder2Enroll = candidates.filter(koder => koder.id == koderID)
   enrolledKoders.push(koder2Enroll[0])
   removeKoderFromArray(koderID,candidates)
-  printKodersTable(candidates,'.table-Koderlist tbody','candidates')
-  printKodersTable(enrolledKoders,'.table-enrolled tbody','enrolled')
+  printKoders()
 }
 
 const WithdrawKoder = (koderID) =>{
   let koder2Withdraw = enrolledKoders.filter(koder => koder.id == koderID)
   candidates.push(koder2Withdraw[0])
   removeKoderFromArray(koderID,enrolledKoders)
-  printKodersTable(candidates,'.table-Koderlist tbody','candidates')
-  printKodersTable(enrolledKoders,'.table-enrolled tbody','enrolled')
+  printKoders();
 }
 
 const removeKoderFromArray = (koderID, array)=>{
@@ -67,7 +99,6 @@ const removeKoderFromArray = (koderID, array)=>{
   return array
 }
 
-let showCandidatesBtn = document.querySelector('.showKoders')
-showCandidatesBtn.addEventListener('click', ()=>{
-  printKodersTable(candidates,'.table-Koderlist tbody','candidates')
-})
+
+
+
