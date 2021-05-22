@@ -99,6 +99,37 @@ const removeKoderFromArray = (koderID, array)=>{
   return array
 }
 
+let loginForm = document.querySelector('#formLogin')
+loginForm.addEventListener('submit', (event) => {
+  event.preventDefault()
 
+  // console.log('click en enviar')
+  if(document.querySelector('#idkoder').value === "") {
+      console.log('Escribe un ID de Koder')
+      return
+  }
+  if(isNaN(document.querySelector('#idkoder').value)) {
+    console.log('Escribe un ID válido -> Solo se permiten números.')
+    return
+  }
+  
+  if(document.querySelector('#namekoder').value === "") {
+      console.log('Escribe el nombre del Koder')
+      return
+  } 
+
+  let idkoder = parseInt(document.querySelector('#idkoder').value)
+  let namekoder = document.querySelector('#namekoder').value
+  console.log(idkoder,namekoder)
+  
+  if(candidates.concat(enrolledKoders).filter(koder => koder.id===idkoder).length > 0){
+    console.log('El ID ya existe')
+    return
+  }
+  document.querySelector('#idkoder').value =''
+  document.querySelector('#namekoder').value=''
+  candidates.push({id: idkoder,name: namekoder})
+  printKoders()
+})
 
 

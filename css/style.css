@@ -4,7 +4,9 @@
   box-sizing: border-box;
 }
 
-.table-wishlist img{
-  width: 120px;
-  border-radius: 5px;
+h1{
+  text-align: center;
+}
+form{
+  width: 20%;
 }

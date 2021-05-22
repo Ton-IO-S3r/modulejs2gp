@@ -1,0 +1,6 @@
+button:active,
+button:focus,
+button:hover{
+    background-color: #024da1;
+    color: #fff;
+}
