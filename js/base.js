@@ -1,133 +1,72 @@
-console.log('event delegation')
+console.log('BOM - Browser Object Model')
 
 let koders =[
   {
-      id: 10,
-      name: 'Antonio',
+    id: 1,
+    name: 'Jorge',
+    bio: 'lorem lorem lorem  lorem',
+    git: '/dered-dev',
+    imgKoder:'https://avatars.githubusercontent.com/u/2187296?v=4'
   },
   {
-      id: 5,
-      name: 'Ferdinand',
+    id: 2,
+    name: 'Antonio',
+    bio: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos, laborum tempore maxime aliquam nemo cumque',
+    git: '/Ton-IO-S3r',
+    imgKoder:'https://avatars.githubusercontent.com/u/44756702?v=4'
   },
   {
-      id: 3,
-      name: 'Rosa',
+    id: 3,
+    name: 'Aaron',
+    bio: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos, laborum tempore maxime aliquam nemo cumque',
+    git: '/AaronMendozaG',
+    imgKoder:'https://avatars.githubusercontent.com/u/82552793?v=4'
   },
   {
-      id: 1,
-      name: 'Yair',
+    id: 4,
+    name: 'Ferdinand',
+    bio: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos, laborum tempore maxime aliquam nemo cumque',
+    git: '/Ferdinand-Bracho',
+    imgKoder:'https://avatars.githubusercontent.com/u/82552824?v=4'
   },
   {
-      id: 2,
-      name: 'Victor',
-  },
-  {
-      id: 8,
-      name: 'Omar'
+    id: 5,
+    name: 'Yair',
+    bio: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos, laborum tempore maxime aliquam nemo cumque',
+    git: '/yairavalos',
+    imgKoder:'https://avatars.githubusercontent.com/u/82552876?v=4'
   },
 ]
-let candidates = [...koders];
-let enrolledKoders=[
-  {
-    id: 48,
-    name: 'Pedro'
-  }
-];
+if (window.location.pathname='clase.html') {
+  const domList = document.querySelector('.domList')
+  let acc=''
+  koders.forEach(koder=>{
+    let {id, name, bio, git, imgKoder} = koder
+    acc += `
+        <li>${name}</li>
 
-const kodersTables = document.querySelectorAll('.table')
-const resetBtn = document.querySelector('.reset')
-const showCandidatesBtn = document.querySelector('.showKoders')
-
-resetBtn.addEventListener('click', ()=>{
-  // candidates = [...koders]
-  
-  candidates = candidates.concat(enrolledKoders)
-  enrolledKoders = []
-  
-  printKoders()
-})
-
-showCandidatesBtn.addEventListener('click', ()=>{
-  printKoders()
-})
-
-
-kodersTables.forEach((table)=>{
-  table.addEventListener('click',(event)=>{
-    var myElement = event.target;
-    myElement.dataset.id != undefined && myElement.classList.contains('enroll') ? EnrollKoder(myElement.dataset.id) : myElement.dataset.id != undefined && myElement.classList.contains('withdraw') ? WithdrawKoder(myElement.dataset.id) : ''
-  })
-})
-
-
-const printKodersTable = (KoderListArray, selector, table_type) =>{
-  var KoderlistContent = '';
-  KoderListArray.forEach((Koder,index) =>{
-    let {id,name} = Koder
-    KoderlistContent += `
-      <tr class=" table-light">
-          <th scope="row">${id}</th>
-          <td>${name}</td>
-          <td><button class="btn btn-${table_type === 'candidates' ? 'primary enroll':'secondary withdraw'}" data-id=${id}>${table_type === 'candidates' ? 'Inscribir':'Dar de baja'}</button></td>
-      </tr>
     `
-  })
-  let KoderListTable = document.querySelector(selector);
-  KoderListTable.innerHTML=KoderlistContent;
-}
-const printKoders = ()=>{
-  printKodersTable(candidates,'.table-Koderlist tbody','candidates')
-  printKodersTable(enrolledKoders,'.table-enrolled tbody','enrolled')
-}
-
-const EnrollKoder = (koderID)=>{
-  let koder2Enroll = candidates.filter(koder => koder.id == koderID)
-  enrolledKoders.push(koder2Enroll[0])
-  removeKoderFromArray(koderID,candidates)
-  printKoders()
-}
-
-const WithdrawKoder = (koderID) =>{
-  let koder2Withdraw = enrolledKoders.filter(koder => koder.id == koderID)
-  candidates.push(koder2Withdraw[0])
-  removeKoderFromArray(koderID,enrolledKoders)
-  printKoders();
-}
-
-const removeKoderFromArray = (koderID, array)=>{
-  array.forEach((item, index) =>{
-      if(item.id == koderID) array.splice(index,1)
-  })
-  return array
-}
-
-
-
-
-
-
-
-let loginForm = document.querySelector('#formLogin')
-loginForm.addEventListener('submit', (event) => {
-    event.preventDefault()
-
-    // console.log('click en enviar')
-    if(document.querySelector('#idkoder').value === "") {
-        console.log('Escribe un usuario')
-        return
-    }
-    if(document.querySelector('#namekoder').value === "") {
-        console.log('Escribe la contraseña')
-        return
-    } 
-
-
-    let idkoder = document.querySelector('#idkoder').value
-    let namekoder = document.querySelector('#namekoder').value
     
-    console.log(idkoder,namekoder)
-    console.log('enviamos los datos de login')
+  })
+  domList.innerHTML=acc
+}
 
-    
 
-})
+let search = window.location.search;
+let idkoder = parseInt(search.slice(search.indexOf('=')+1))
+console.log(idkoder)
+
+let koderObject = koders.filter(koder => koder.id == idkoder)[0]
+
+console.log(koderObject)
+
+const printKoder = (objKoder)=>{
+  let {id, name, bio, git, imgKoder}=objKoder
+  document.querySelector('.card-img-top').setAttribute('src',`${imgKoder}`)
+  document.querySelector('.card-title').innerText = `${id}: ${name}`
+  document.querySelector('.card-text').innerText = bio
+  document.querySelector('.btn-primary').innerText = git
+  document.querySelector('.btn-primary').setAttribute('href',`https://github.com${git}`)
+  document.querySelector('.btn-primary').setAttribute('target',`_blank`)
+}
+printKoder(koderObject)
