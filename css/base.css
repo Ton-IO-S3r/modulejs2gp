@@ -1,6 +1,9 @@
-button:active,
-button:focus,
-button:hover{
+a:active,
+a:focus,
+a:hover{
     background-color: #024da1;
     color: #fff;
+}
+.card-img-top{
+  border-radius: 50%;
 }
