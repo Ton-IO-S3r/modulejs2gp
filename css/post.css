@@ -19,12 +19,23 @@ h1{
   text-align: center;
   color: rgb(0, 63, 163);
 }
-h2{
+h2,h5{
   color: rgb(58, 57, 57);
+}
+
+h3{
+  color: rgb(40, 63, 114);
+}
+h4{
+  color: rgb(28, 112, 195);
 }
 p{
   font-size: 1.2rem;
 }
 form{
   width: 20%;
+}
+
+.post p.body{
+  font-size: 1.5rem;
 }
