@@ -108,3 +108,12 @@ request.addEventListener('readystatechange', () => {
 request.send(
   JSON.stringify(objNewKoder)
 ) */ 
+
+
+
+
+
+
+
+// FETCH
+// Syntaxis  fetch()
