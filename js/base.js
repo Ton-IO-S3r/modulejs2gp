@@ -15,8 +15,28 @@ const printList = (obKoders) => {
   }
   
   // console.log(acc)
-  let list__koders = document.querySelector('.kodersList')
+  let list__koder = document.querySelector('.kodersList')
   list__koders.innerHTML = acc
+}
+
+// Funcion para imprimir un koder
+const printKoder = (obKoder) => {
+  let acc = ''
+  
+  acc += `
+  <li class="list-group-item d-flex justify-content-between">
+      <p class="pr-4 text-left">${obKoder.name} ${obKoder.lastname}</p>
+      <div class="options__koder">
+          <a href="/koder.html?idkoder=${obKoder.key}" class="pr-4 btn btn-primary">Ver koder</a>
+          <a href="#" class="pr-4 btn btn-warning updatekoder" data-id="${obKoder.key}">Editar</a>
+      </div>
+  </li>
+    `
+  
+  
+  // console.log(acc)
+  let koder = document.querySelector('.kodersList')
+  koder.innerHTML = acc
 }
 
 /*  GET */
@@ -52,6 +72,39 @@ const getKodersListFetch = () => {
     printList(response)
   })
 }
+
+//Funcion para obtener  el koder seleccionado con el uso del objeto XMLHttpRequest
+const getKoderXHR = (koderid) => {
+  const requestGet = new XMLHttpRequest()
+  requestGet.open('GET',`https://python-2g-asm-default-rtdb.firebaseio.com/koders/${koderid}.json`)
+  requestGet.addEventListener('readystatechange', () => {
+    if(requestGet.readyState !== 4) {
+        return 
+    } else {
+        if(requestGet.status >= 200 && requestGet.status <= 299){
+            const response  = requestGet
+            const objectResponse = JSON.parse(response.responseText)
+            printKoder(objectResponse)
+        } else {
+            console.log('No se pudo ejecutar')
+        }
+    } 
+  })
+  requestGet.send() 
+}
+
+//Funcion para obtener el koder seleccionado con el uso de FETCH
+const getKoderFetch = (koderid) => {
+  fetch(`https://python-2g-asm-default-rtdb.firebaseio.com/koders/${koderid}.json`)
+  .then(result =>{
+    return result.json()
+  })
+  .then(response =>{
+    console.log(response)
+    printKoder(response)
+  })
+}
+
 
 /* POST */
 //Funcion para hacer POST de koder con el uso de XMLHttpRequest
@@ -169,7 +222,10 @@ if (window.location.pathname === '/pages/addkoder.html') {
   })
 }
 
-
+if (window.location.pathname === '/pages/koder.html') {
+  //getKoderXHR(id)
+  getKoderFetch(id)
+}
 /*  */
 
 /* let objNewKoder = {
