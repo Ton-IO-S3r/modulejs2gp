@@ -7,7 +7,7 @@ const printList = (obKoders) => {
     <li class="list-group-item d-flex justify-content-between">
         <p class="pr-4 text-left">${name} ${lastname}</p>
         <div class="options__koder">
-            <a href="/koder.html?idkoder=${key}" class="pr-4 btn btn-primary">Ver koder</a>
+            <a href="/pages/koder.html?idkoder=${key}" class="pr-4 btn btn-primary">Ver koder</a>
             <a href="#" class="pr-4 btn btn-danger deletekoder" data-id="${key}">Eliminar</a>
         </div>
     </li>
@@ -15,28 +15,17 @@ const printList = (obKoders) => {
   }
   
   // console.log(acc)
-  let list__koder = document.querySelector('.kodersList')
+  let list__koders = document.querySelector('.kodersList')
   list__koders.innerHTML = acc
 }
 
 // Funcion para imprimir un koder
 const printKoder = (obKoder) => {
-  let acc = ''
+  document.querySelector('.fullname .name').innerText = obKoder.name
+  document.querySelector('.fullname .lastname').innerText = obKoder.lastname
+  document.querySelector('.age-num').innerText = obKoder.age
+  document.querySelector('.rol').innerText = obKoder.position
   
-  acc += `
-  <li class="list-group-item d-flex justify-content-between">
-      <p class="pr-4 text-left">${obKoder.name} ${obKoder.lastname}</p>
-      <div class="options__koder">
-          <a href="/koder.html?idkoder=${obKoder.key}" class="pr-4 btn btn-primary">Ver koder</a>
-          <a href="#" class="pr-4 btn btn-warning updatekoder" data-id="${obKoder.key}">Editar</a>
-      </div>
-  </li>
-    `
-  
-  
-  // console.log(acc)
-  let koder = document.querySelector('.kodersList')
-  koder.innerHTML = acc
 }
 
 /*  GET */
@@ -184,6 +173,48 @@ const deleteKoderFetch = (koderid) => {
   })
 }
 
+//Funcion para hacer PUT de koder con el uso de XHR
+const updateKoderXHR = (objKoder, idKoder) => {
+  const request = new XMLHttpRequest()
+  request.open('PUT', `https://python-2g-asm-default-rtdb.firebaseio.com/koders/${idKoder}.json`)
+  request.addEventListener('readystatechange', () => {
+    if(request.readyState !== 4) {
+        return 
+    } else {
+        if(request.status >= 200 && request.status <= 299){
+            const response  = request
+            const objectResponse = JSON.parse(response.responseText)
+            console.log(objectResponse)
+            window.location.pathname = '/pages/clase.html'
+        } else {
+            console.log('No se pudo ejecutar')
+        }
+    } 
+  })
+  request.send(
+    JSON.stringify(objKoder)
+  ) 
+}
+
+//Funcion para hacer PUT de koder con el uso de XHR
+const updateKoderFETCH = (objKoder, idKoder) => {
+  fetch(`https://python-2g-asm-default-rtdb.firebaseio.com/koders/${idKoder}.json`,{
+    method: 'PUT',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(objKoder)
+  })
+  .then(res => {
+    return res.json()
+  })
+  .then(response => {
+    console.log(response)
+    window.location.pathname='/pages/clase.html'
+  })
+}
+
+
 if (window.location.pathname === '/pages/clase.html') {
   //obtener la lista de Koders
   getKodersListFetch()
@@ -223,9 +254,56 @@ if (window.location.pathname === '/pages/addkoder.html') {
 }
 
 if (window.location.pathname === '/pages/koder.html') {
+  let searchParameter = window.location.search;
+  const id = searchParameter.slice(searchParameter.indexOf('=')+1)
+  const edit_Btn = document.querySelector('button.edit')
+  const save_Btn = document.querySelector('#save-btn')
+  const cancel_Btn = document.querySelector('#cancel-btn')
+
   //getKoderXHR(id)
   getKoderFetch(id)
+
+  save_Btn.addEventListener('click', () => {
+    let newName = document.querySelector('#name').value
+    let newLastName = document.querySelector('#lastname').value
+    let newAge = document.querySelector('#age').value
+    let newJob = document.querySelector('#job-position').value
+
+    if (newName == '' || newLastName == '' || newAge == '' || newJob == '') {
+      return
+    }
+
+    let objNewKoder = {
+      name : newName,
+      lastname : newLastName,
+      age: parseInt(newAge),
+      position : newJob
+    }
+    //updateKoderXHR(objNewKoder, id)
+    updateKoderFETCH(objNewKoder, id)
+    
+  })
+
+  cancel_Btn.addEventListener('click', () => {
+    document.querySelector('.card-body').classList.toggle('visible')
+    document.querySelector('.edit-form').classList.toggle('visible')
+    edit_Btn.classList.toggle('visible')
+  })
+
+  edit_Btn.addEventListener('click', (e) => {
+    document.querySelector('input#name').value = document.querySelector('.card-body .name').innerText
+    document.querySelector('input#lastname').value = document.querySelector('.card-body .lastname').innerText
+    document.querySelector('input#age').value = document.querySelector('.card-body .age .age-num').innerText
+    document.querySelector('input#job-position').value = document.querySelector('.card-body .position .rol').innerText
+    document.querySelector('.card-body').classList.toggle('visible')
+    document.querySelector('.edit-form').classList.toggle('visible')
+    e.target.classList.toggle('visible')
+  })
+  
+
 }
+
+
 /*  */
 
 /* let objNewKoder = {
@@ -234,24 +312,7 @@ if (window.location.pathname === '/pages/koder.html') {
   age: 54,
   position : 'Koder'
 }
-const request = new XMLHttpRequest()
-request.open('PUT','https://python2g-default-rtdb.firebaseio.com/koders/-MaWLA-C3tIqERgLDLcP.json')
-request.addEventListener('readystatechange', () => {
-  if(request.readyState !== 4) {
-      return 
-  } else {
-      if(request.status >= 200 && request.status <= 299){
-          const response  = request
-          const objectResponse = JSON.parse(response.responseText)
-          console.log(objectResponse)
-      } else {
-          console.log('No se pudo ejecutar')
-      }
-  } 
-})
-request.send(
-  JSON.stringify(objNewKoder)
-) */
+*/
 
 
 /* let objNewKoder = {
