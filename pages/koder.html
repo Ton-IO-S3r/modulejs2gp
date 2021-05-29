@@ -14,21 +14,36 @@
 <body>
   <div class="container">
     <div class="row">
-      <h1 class="title_page title2 title3" id="title_page_id" data-id="id">Ejercicios de la clase 14</h1>
+      <h1 class="title_page title2 title3" id="title_page_id" data-id="id">Ejercicios de la clase 16</h1>
 
-      <h2>BOM</h2>
+      <h2>FETCH</h2>
 
-      <div class="col-12 mt-5 mb-5">
-        <div class="card" style="width: 50rem;">
+      <div class="col-12 d-flex flex-column align-items-center justify-content-center flex-nowrap mt-5 mb-5">
+        <div class="card w-50 d-flex justify-content-center align-items-center">
 
-          <div class="card-body d-flex flex-column">
-            <input class="card-title mt-3 fullname">
-            <input class="card-text mt-3 age">
-            <input class="card-text mt-3 position">
+          <div class="card-body flex-column visible justify-content-center align-items-center">
+            <h3 class="card-title mt-3 fullname"><span class="name"></span> <span class="lastname"></span> </h3>
+            <p class="card-text mt-3 age">Edad: <span class="age-num"></span> años</p>
+            <p class="card-text mt-3 position">Rol: <span class="rol"></span></p>
 
           </div>
-          <button type="button" class="btn btn-warning mt-4 edit">Editar</a>
+          <form action="" method="" class="edit-form flex-column ">
+            <label for="name" class="form-label mt-4">Nombre</label>
+            <input type="text" class="form-control" id="name">
+            <label for="lastname" class="form-label mt-4">Apellido</label>
+            <input type="text" class="form-control" id="lastname">
+            <label for="age" class="form-label mt-4">Edad</label>
+            <input type="text" class="form-control" id="age">
+            <label for="job-position" class="form-label mt-4">Puesto</label>
+            <input type="text" class="form-control" id="job-position">
+            <div class="d-flex justify-content-end align-items-center">
+              <button type="button" class="btn btn-primary my-4 mx-2" id="save-btn">Guardar</button>
+              <button type="button" class="btn btn-secondary my-4 mx-2 cancel " id="cancel-btn">Cancelar</button>
+            </div>
+
+          </form>
         </div>
+        <button type="button" class="btn btn-warning mt-4 edit visible">Editar</button>
       </div>
 
     </div>

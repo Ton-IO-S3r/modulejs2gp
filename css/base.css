@@ -13,7 +13,27 @@ input:disabled{
 input{
   border-radius: 8px;
   border: 1px solid gray;
+  color: #024da1;
 }
+
+
+div.card-body, form.edit-form{
+  display: none;
+}
+div.card-body.visible{
+  display: flex;
+}
+form.edit-form.visible{
+  display: flex;
+  width: 80%;
+}
+button.edit{
+  display: none;
+}
+button.edit.visible{
+  display: inline-block;
+}
+
 .fullname{
   font-size: 2rem;
 }
