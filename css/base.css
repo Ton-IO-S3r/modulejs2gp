@@ -7,3 +7,13 @@ a:hover{
 .card-img-top{
   border-radius: 50%;
 }
+input:disabled{
+  border: none;
+}
+input{
+  border-radius: 8px;
+  border: 1px solid gray;
+}
+.fullname{
+  font-size: 2rem;
+}

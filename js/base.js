@@ -7,7 +7,7 @@ const printList = (obKoders) => {
     <li class="list-group-item d-flex justify-content-between">
         <p class="pr-4 text-left">${name} ${lastname}</p>
         <div class="options__koder">
-            <a href="/koder.html?idkoder=${key}" class="pr-4 btn btn-primary">Ver koder</a>
+            <a href="/pages/koder.html?idkoder=${key}" class="pr-4 btn btn-primary">Ver koder</a>
             <a href="#" class="pr-4 btn btn-danger deletekoder" data-id="${key}">Eliminar</a>
         </div>
     </li>
@@ -15,28 +15,15 @@ const printList = (obKoders) => {
   }
   
   // console.log(acc)
-  let list__koder = document.querySelector('.kodersList')
+  let list__koders = document.querySelector('.kodersList')
   list__koders.innerHTML = acc
 }
 
 // Funcion para imprimir un koder
 const printKoder = (obKoder) => {
-  let acc = ''
-  
-  acc += `
-  <li class="list-group-item d-flex justify-content-between">
-      <p class="pr-4 text-left">${obKoder.name} ${obKoder.lastname}</p>
-      <div class="options__koder">
-          <a href="/koder.html?idkoder=${obKoder.key}" class="pr-4 btn btn-primary">Ver koder</a>
-          <a href="#" class="pr-4 btn btn-warning updatekoder" data-id="${obKoder.key}">Editar</a>
-      </div>
-  </li>
-    `
-  
-  
-  // console.log(acc)
-  let koder = document.querySelector('.kodersList')
-  koder.innerHTML = acc
+  document.querySelector('.fullname').value = `${obKoder.name} ${obKoder.lastname}`
+  document.querySelector('.age').value = `Edad: ${obKoder.age} años`
+  document.querySelector('.position').value = `Rol: ${obKoder.position}`
 }
 
 /*  GET */
@@ -223,8 +210,19 @@ if (window.location.pathname === '/pages/addkoder.html') {
 }
 
 if (window.location.pathname === '/pages/koder.html') {
+  let searchParameter = window.location.search;
+  const id = searchParameter.slice(searchParameter.indexOf('=')+1)
+  const edit_Btn = document.querySelector('button.edit')
+  const inputs = document.querySelectorAll('input')
+  inputs.forEach(element => element.disabled=true)
+  edit_Btn.addEventListener('click', () => {
+    inputs.forEach(element => element.disabled=false)
+    document.querySelectorAll('input').classList.add('edit')
+  })
   //getKoderXHR(id)
   getKoderFetch(id)
+
+
 }
 /*  */
 
