@@ -14,17 +14,16 @@ const printList = (obKoders) => {
     `
   }
   
-  // console.log(acc)
-  let list__koders = document.querySelector('.kodersList')
+  let list__koders = $('.kodersList')[0]
   list__koders.innerHTML = acc
 }
 
 // Funcion para imprimir un koder
 const printKoder = (obKoder) => {
-  document.querySelector('.fullname .name').innerText = obKoder.name
-  document.querySelector('.fullname .lastname').innerText = obKoder.lastname
-  document.querySelector('.age-num').innerText = obKoder.age
-  document.querySelector('.rol').innerText = obKoder.position
+  $('.fullname .name')[0].innerText = obKoder.name
+  $('.fullname .lastname')[0].innerText = obKoder.lastname
+  $('.age-num')[0].innerText = obKoder.age
+  $('.rol')[0].innerText = obKoder.position
   
 }
 
@@ -219,7 +218,7 @@ if (window.location.pathname === '/pages/clase.html') {
   //obtener la lista de Koders
   getKodersListFetch()
   //getKodersListXHR()
-  const kodersList_element = document.querySelector('.kodersList')
+  const kodersList_element = $('.kodersList')[0]
   kodersList_element.addEventListener('click', (event) => {
     const elementClicked = event.target
     
@@ -231,12 +230,12 @@ if (window.location.pathname === '/pages/clase.html') {
 }
 
 if (window.location.pathname === '/pages/addkoder.html') {
-  const createBtn = document.querySelector('#create-btn')
+  const createBtn = $('#create-btn')[0]
   createBtn.addEventListener('click', ()=>{
-    let newName = document.querySelector('#name').value
-    let newLastName = document.querySelector('#lastname').value
-    let newAge = document.querySelector('#age').value
-    let newJob = document.querySelector('#job-position').value
+    let newName = $('#name')[0].value
+    let newLastName = $('#lastname')[0].value
+    let newAge = $('#age')[0].value
+    let newJob = $('#job-position')[0].value
 
     if (newName == '' || newLastName == '' || newAge == '' || newJob == '') {
       return
@@ -256,18 +255,18 @@ if (window.location.pathname === '/pages/addkoder.html') {
 if (window.location.pathname === '/pages/koder.html') {
   let searchParameter = window.location.search;
   const id = searchParameter.slice(searchParameter.indexOf('=')+1)
-  const edit_Btn = document.querySelector('button.edit')
-  const save_Btn = document.querySelector('#save-btn')
-  const cancel_Btn = document.querySelector('#cancel-btn')
+  const edit_Btn = $('button.edit')[0]
+  const save_Btn = $('#save-btn')[0]
+  const cancel_Btn = $('#cancel-btn')[0]
 
   //getKoderXHR(id)
   getKoderFetch(id)
 
   save_Btn.addEventListener('click', () => {
-    let newName = document.querySelector('#name').value
-    let newLastName = document.querySelector('#lastname').value
-    let newAge = document.querySelector('#age').value
-    let newJob = document.querySelector('#job-position').value
+    let newName = $('#name')[0].value
+    let newLastName = $('#lastname')[0].value
+    let newAge = $('#age')[0].value
+    let newJob = $('#job-position')[0].value
 
     if (newName == '' || newLastName == '' || newAge == '' || newJob == '') {
       return
@@ -285,18 +284,18 @@ if (window.location.pathname === '/pages/koder.html') {
   })
 
   cancel_Btn.addEventListener('click', () => {
-    document.querySelector('.card-body').classList.toggle('visible')
-    document.querySelector('.edit-form').classList.toggle('visible')
+    $('.card-body')[0].classList.toggle('visible')
+    $('.edit-form')[0].classList.toggle('visible')
     edit_Btn.classList.toggle('visible')
   })
 
   edit_Btn.addEventListener('click', (e) => {
-    document.querySelector('input#name').value = document.querySelector('.card-body .name').innerText
-    document.querySelector('input#lastname').value = document.querySelector('.card-body .lastname').innerText
-    document.querySelector('input#age').value = document.querySelector('.card-body .age .age-num').innerText
-    document.querySelector('input#job-position').value = document.querySelector('.card-body .position .rol').innerText
-    document.querySelector('.card-body').classList.toggle('visible')
-    document.querySelector('.edit-form').classList.toggle('visible')
+    $('input#name')[0].value = $('.card-body .name')[0].innerText
+    $('input#lastname')[0].value = $('.card-body .lastname')[0].innerText
+    $('input#age')[0].value = $('.card-body .age .age-num')[0].innerText
+    $('input#job-position')[0].value = $('.card-body .position .rol')[0].innerText
+    $('.card-body')[0].classList.toggle('visible')
+    $('.edit-form')[0].classList.toggle('visible')
     e.target.classList.toggle('visible')
   })
   
