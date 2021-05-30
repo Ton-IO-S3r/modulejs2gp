@@ -13,17 +13,17 @@ const printList = (obKoders) => {
     </li>
     `
   }
-  
-  let list__koders = $('.kodersList')[0]
-  list__koders.innerHTML = acc
+  /* let list__koders = $('.kodersList')[0]
+  list__koders.innerHTML = acc */
+  $('.kodersList').html(acc)
 }
 
 // Funcion para imprimir un koder
 const printKoder = (obKoder) => {
-  $('.fullname .name')[0].innerText = obKoder.name
-  $('.fullname .lastname')[0].innerText = obKoder.lastname
-  $('.age-num')[0].innerText = obKoder.age
-  $('.rol')[0].innerText = obKoder.position
+  $('.fullname .name').text(obKoder.name)
+  $('.fullname .lastname').text(obKoder.lastname)
+  $('.age-num').text(obKoder.age)
+  $('.rol').text(obKoder.position)
   
 }
 
@@ -218,7 +218,7 @@ if (window.location.pathname === '/pages/clase.html') {
   //obtener la lista de Koders
   getKodersListFetch()
   //getKodersListXHR()
-  const kodersList_element = $('.kodersList')[0]
+  /* const kodersList_element = $('.kodersList')[0]
   kodersList_element.addEventListener('click', (event) => {
     const elementClicked = event.target
     
@@ -226,16 +226,22 @@ if (window.location.pathname === '/pages/clase.html') {
       //deleteKoderXHR(elementClicked.dataset.id)
       deleteKoderFetch(elementClicked.dataset.id)
     }
-  })  
+  })  */ 
+  $('.kodersList').click(event => {
+    const elementClicked = event.target   
+    if (elementClicked.classList.contains('deletekoder') && confirm(`Estas seguro de eliminar al koder?`)) {
+      //deleteKoderXHR(elementClicked.dataset.id)
+      deleteKoderFetch(elementClicked.dataset.id)
+    }
+  }) 
 }
 
 if (window.location.pathname === '/pages/addkoder.html') {
-  const createBtn = $('#create-btn')[0]
-  createBtn.addEventListener('click', ()=>{
-    let newName = $('#name')[0].value
-    let newLastName = $('#lastname')[0].value
-    let newAge = $('#age')[0].value
-    let newJob = $('#job-position')[0].value
+  $('#create-btn').click( () => {
+    let newName = $('#name').val()
+    let newLastName = $('#lastname').val()
+    let newAge = $('#age').val()
+    let newJob = $('#job-position').val()
 
     if (newName == '' || newLastName == '' || newAge == '' || newJob == '') {
       return
@@ -255,18 +261,18 @@ if (window.location.pathname === '/pages/addkoder.html') {
 if (window.location.pathname === '/pages/koder.html') {
   let searchParameter = window.location.search;
   const id = searchParameter.slice(searchParameter.indexOf('=')+1)
-  const edit_Btn = $('button.edit')[0]
+  /* const edit_Btn = $('button.edit')[0]
   const save_Btn = $('#save-btn')[0]
-  const cancel_Btn = $('#cancel-btn')[0]
+  const cancel_Btn = $('#cancel-btn')[0] */
 
   //getKoderXHR(id)
   getKoderFetch(id)
 
-  save_Btn.addEventListener('click', () => {
-    let newName = $('#name')[0].value
-    let newLastName = $('#lastname')[0].value
-    let newAge = $('#age')[0].value
-    let newJob = $('#job-position')[0].value
+  $('#save-btn').click(() => {
+    let newName = $('#name').val()
+    let newLastName = $('#lastname').val()
+    let newAge = $('#age').val()
+    let newJob = $('#job-position').val()
 
     if (newName == '' || newLastName == '' || newAge == '' || newJob == '') {
       return
@@ -283,36 +289,22 @@ if (window.location.pathname === '/pages/koder.html') {
     
   })
 
-  cancel_Btn.addEventListener('click', () => {
-    $('.card-body')[0].classList.toggle('visible')
-    $('.edit-form')[0].classList.toggle('visible')
-    edit_Btn.classList.toggle('visible')
+  $('#cancel-btn').click( () => {
+    $('.card-body').toggleClass('visible')
+    $('.edit-form').toggleClass('visible')
+    $('button.edit').toggleClass('visible')
   })
 
-  edit_Btn.addEventListener('click', (e) => {
-    $('input#name')[0].value = $('.card-body .name')[0].innerText
-    $('input#lastname')[0].value = $('.card-body .lastname')[0].innerText
-    $('input#age')[0].value = $('.card-body .age .age-num')[0].innerText
-    $('input#job-position')[0].value = $('.card-body .position .rol')[0].innerText
-    $('.card-body')[0].classList.toggle('visible')
-    $('.edit-form')[0].classList.toggle('visible')
+  $('button.edit').click( (e) => {
+    $('input#name').val($('.card-body .name').text())
+    $('input#lastname').val($('.card-body .lastname').text())
+    $('input#age').val($('.card-body .age .age-num').text())
+    $('input#job-position').val($('.card-body .position .rol').text())
+    $('.card-body').toggleClass('visible')
+    $('.edit-form').toggleClass('visible')
     e.target.classList.toggle('visible')
   })
-  
-
 }
-
-
-/*  */
-
-/* let objNewKoder = {
-  name : 'Antonio',
-  lastname : 'Servin',
-  age: 54,
-  position : 'Koder'
-}
-*/
-
 
 /* let objNewKoder = {
   age: 35
