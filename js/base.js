@@ -60,9 +60,10 @@ const getKodersListFetch = () => {
   })
 }
 
-const getKodersListJquery = () => {
+const getKodersListJquery = async () => {
   // USING JQUERY GET METHOD
-  $.get('https://python-2g-asm-default-rtdb.firebaseio.com/koders/.json', data => printList(data))
+  let koders = await $.get('https://python-2g-asm-default-rtdb.firebaseio.com/koders/.json')
+  printList(koders)
 }
 
 //Funcion para obtener  el koder seleccionado con el uso del objeto XMLHttpRequest
@@ -96,8 +97,9 @@ const getKoderFetch = (koderid) => {
   })
 }
 
-const getKoderJquery = (koderid) => {
-  $.get(`https://python-2g-asm-default-rtdb.firebaseio.com/koders/${koderid}.json`, (data) => printKoder(data))
+const getKoderJquery = async (koderid) => {
+  let koder = await $.get(`https://python-2g-asm-default-rtdb.firebaseio.com/koders/${koderid}.json`)
+  printKoder(koder)
 }
 
 
@@ -141,8 +143,8 @@ const postKoderFETCH = (objkoder) => {
   })
 }
 
-const postKoderJquery = (objKoder) => {
-  $.post("https://python-2g-asm-default-rtdb.firebaseio.com/koders/.json", JSON.stringify(objKoder), () => {window.location.pathname='/pages/clase.html'})
+const postKoderJquery =  async (objKoder) => {
+  await $.post("https://python-2g-asm-default-rtdb.firebaseio.com/koders/.json", JSON.stringify(objKoder), () => {window.location.pathname='/pages/clase.html'})
 }
 
 //Funcion para hacer DELETE de koder con el uso de XMLHttpRequest
@@ -180,8 +182,8 @@ const deleteKoderFetch = (koderid) => {
   })
 }
 
-const deleteKoderJquery = (koderid) => {
-  $.ajax({
+const deleteKoderJquery = async (koderid) => {
+  await $.ajax({
     url:`https://python-2g-asm-default-rtdb.firebaseio.com/koders/${koderid}.json`,
     method: 'DELETE',
     dataType: 'json',
@@ -230,8 +232,8 @@ const updateKoderFETCH = (objKoder, idKoder) => {
   })
 }
 
-const updateKoderJquery = (objKoder, idKoder) => {
-  $.ajax({
+const updateKoderJquery = async (objKoder, idKoder) => {
+  await $.ajax({
     url:`https://python-2g-asm-default-rtdb.firebaseio.com/koders/${idKoder}.json`,
     method: 'PUT',
     dataType: 'json',
@@ -248,14 +250,7 @@ if (window.location.pathname === '/pages/clase.html') {
   getKodersListJquery()
   //getKodersListFetch()
   //getKodersListXHR()
-  /* $('.kodersList').click(event => {
-    const elementClicked = event.target   
-    if (elementClicked.classList.contains('deletekoder') && confirm(`Estas seguro de eliminar al koder?`)) {
-      //deleteKoderXHR(elementClicked.dataset.id)
-      //deleteKoderFetch(elementClicked.dataset.id)
-      deleteKoderJquery(elementClicked.dataset.id)
-    }
-  }) */ 
+  
   $('.kodersList').on('click','.deletekoder', function(){
     if(confirm('Estas seguro de eliminar al koder?')){
       //deleteKoderXHR(elementClicked.dataset.id)
