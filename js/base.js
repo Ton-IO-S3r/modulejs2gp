@@ -248,14 +248,21 @@ if (window.location.pathname === '/pages/clase.html') {
   getKodersListJquery()
   //getKodersListFetch()
   //getKodersListXHR()
-  $('.kodersList').click(event => {
+  /* $('.kodersList').click(event => {
     const elementClicked = event.target   
     if (elementClicked.classList.contains('deletekoder') && confirm(`Estas seguro de eliminar al koder?`)) {
       //deleteKoderXHR(elementClicked.dataset.id)
       //deleteKoderFetch(elementClicked.dataset.id)
       deleteKoderJquery(elementClicked.dataset.id)
     }
-  }) 
+  }) */ 
+  $('.kodersList').on('click','.deletekoder', function(){
+    if(confirm('Estas seguro de eliminar al koder?')){
+      //deleteKoderXHR(elementClicked.dataset.id)
+      //deleteKoderFetch(elementClicked.dataset.id)
+      deleteKoderJquery($(this).data('id'))
+    }
+  })
 }
 
 if (window.location.pathname === '/pages/addkoder.html') {
