@@ -56,9 +56,13 @@ const getKodersListFetch = () => {
     return result.json()
   })
   .then(response =>{
-    console.log(response)
     printList(response)
   })
+}
+
+const getKodersListJquery = () => {
+  // USING JQUERY GET METHOD
+  $.get('https://python-2g-asm-default-rtdb.firebaseio.com/koders/.json', data => printList(data))
 }
 
 //Funcion para obtener  el koder seleccionado con el uso del objeto XMLHttpRequest
@@ -88,9 +92,12 @@ const getKoderFetch = (koderid) => {
     return result.json()
   })
   .then(response =>{
-    console.log(response)
     printKoder(response)
   })
+}
+
+const getKoderJquery = (koderid) => {
+  $.get(`https://python-2g-asm-default-rtdb.firebaseio.com/koders/${koderid}.json`, (data) => printKoder(data))
 }
 
 
@@ -106,7 +113,6 @@ const postKoderXHR = (objkoder) => {
         if(request.status >= 200 && request.status <= 299){
             const response  = request
             const objectResponse = JSON.parse(response.responseText)
-            console.log(objectResponse)
             window.location.pathname = '/pages/clase.html'
         } else {
             console.log('No se pudo ejecutar')
@@ -120,7 +126,7 @@ const postKoderXHR = (objkoder) => {
 
 //Funcion para hacer POST de koder con el uso de FETCH
 const postKoderFETCH = (objkoder) => {
-  fetch('', {
+  fetch('https://python-2g-asm-default-rtdb.firebaseio.com/koders/.json', {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
@@ -131,12 +137,13 @@ const postKoderFETCH = (objkoder) => {
     return res.json()
   })
   .then(response => {
-    console.log(response)
     window.location.pathname='/pages/clase.html'
   })
-
 }
 
+const postKoderJquery = (objKoder) => {
+  $.post("https://python-2g-asm-default-rtdb.firebaseio.com/koders/.json", JSON.stringify(objKoder), () => {window.location.pathname='/pages/clase.html'})
+}
 
 //Funcion para hacer DELETE de koder con el uso de XMLHttpRequest
 const deleteKoderXHR = (koderid) => {
@@ -168,7 +175,19 @@ const deleteKoderFetch = (koderid) => {
     return res.json()
   })
   .then(response => {
-    getKodersListFetch()
+    //getKodersListFetch()
+    getKodersListJquery()
+  })
+}
+
+const deleteKoderJquery = (koderid) => {
+  $.ajax({
+    url:`https://python-2g-asm-default-rtdb.firebaseio.com/koders/${koderid}.json`,
+    method: 'DELETE',
+    dataType: 'json',
+    success: function () {
+      getKodersListJquery()
+    }
   })
 }
 
@@ -183,7 +202,6 @@ const updateKoderXHR = (objKoder, idKoder) => {
         if(request.status >= 200 && request.status <= 299){
             const response  = request
             const objectResponse = JSON.parse(response.responseText)
-            console.log(objectResponse)
             window.location.pathname = '/pages/clase.html'
         } else {
             console.log('No se pudo ejecutar')
@@ -207,31 +225,35 @@ const updateKoderFETCH = (objKoder, idKoder) => {
   .then(res => {
     return res.json()
   })
-  .then(response => {
-    console.log(response)
+  .then(() => {
     window.location.pathname='/pages/clase.html'
+  })
+}
+
+const updateKoderJquery = (objKoder, idKoder) => {
+  $.ajax({
+    url:`https://python-2g-asm-default-rtdb.firebaseio.com/koders/${idKoder}.json`,
+    method: 'PUT',
+    dataType: 'json',
+    data: JSON.stringify(objKoder),
+    success: function () {
+      window.location.pathname='/pages/clase.html'
+    }
   })
 }
 
 
 if (window.location.pathname === '/pages/clase.html') {
   //obtener la lista de Koders
-  getKodersListFetch()
+  getKodersListJquery()
+  //getKodersListFetch()
   //getKodersListXHR()
-  /* const kodersList_element = $('.kodersList')[0]
-  kodersList_element.addEventListener('click', (event) => {
-    const elementClicked = event.target
-    
-    if (elementClicked.classList.contains('deletekoder') && confirm(`Estas seguro de eliminar al koder?`)) {
-      //deleteKoderXHR(elementClicked.dataset.id)
-      deleteKoderFetch(elementClicked.dataset.id)
-    }
-  })  */ 
   $('.kodersList').click(event => {
     const elementClicked = event.target   
     if (elementClicked.classList.contains('deletekoder') && confirm(`Estas seguro de eliminar al koder?`)) {
       //deleteKoderXHR(elementClicked.dataset.id)
-      deleteKoderFetch(elementClicked.dataset.id)
+      //deleteKoderFetch(elementClicked.dataset.id)
+      deleteKoderJquery(elementClicked.dataset.id)
     }
   }) 
 }
@@ -253,20 +275,18 @@ if (window.location.pathname === '/pages/addkoder.html') {
       age: parseInt(newAge),
       position : newJob
     }
-    postKoderXHR(objNewKoder)
+    //postKoderXHR(objNewKoder)
     //postKoderFETCH(objNewKoder)
+    postKoderJquery(objNewKoder)
   })
 }
 
 if (window.location.pathname === '/pages/koder.html') {
   let searchParameter = window.location.search;
   const id = searchParameter.slice(searchParameter.indexOf('=')+1)
-  /* const edit_Btn = $('button.edit')[0]
-  const save_Btn = $('#save-btn')[0]
-  const cancel_Btn = $('#cancel-btn')[0] */
-
   //getKoderXHR(id)
-  getKoderFetch(id)
+  //getKoderFetch(id)
+  getKoderJquery(id)
 
   $('#save-btn').click(() => {
     let newName = $('#name').val()
@@ -285,7 +305,8 @@ if (window.location.pathname === '/pages/koder.html') {
       position : newJob
     }
     //updateKoderXHR(objNewKoder, id)
-    updateKoderFETCH(objNewKoder, id)
+    //updateKoderFETCH(objNewKoder, id)
+    updateKoderJquery(objNewKoder,id)
     
   })
 
@@ -305,25 +326,3 @@ if (window.location.pathname === '/pages/koder.html') {
     e.target.classList.toggle('visible')
   })
 }
-
-/* let objNewKoder = {
-  age: 35
-}
-const request = new XMLHttpRequest()
-request.open('PATCH','https://python2g-default-rtdb.firebaseio.com/koders/-MaWLA-C3tIqERgLDLcP.json')
-request.addEventListener('readystatechange', () => {
-  if(request.readyState !== 4) {
-      return 
-  } else {
-      if(request.status >= 200 && request.status <= 299){
-          const response  = request
-          const objectResponse = JSON.parse(response.responseText)
-          console.log(objectResponse)
-      } else {
-          console.log('No se pudo ejecutar')
-      }
-  } 
-})
-request.send(
-  JSON.stringify(objNewKoder)
-)  */
